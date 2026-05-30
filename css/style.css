@@ -55,3 +55,18 @@ p {
 footer.page-footer {
   margin: 0;
 }
+
+body, .container {
+  min-width: 1024px;
+  width: 1024px;
+}
+
+table {
+  width: 1024px;
+  table-layout: fixed;
+}
+
+.bad-text {
+  white-space: nowrap;
+  overflow: hidden;
+}
