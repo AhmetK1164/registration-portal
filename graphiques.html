@@ -31,7 +31,7 @@
     </div>
   </nav>
 
-  <audio autoplay loop>
+  <audio autoplay loop>                                                                                                                 <!-- Neu für 9.1.4.2 -->
         <source src="audio/bistro.mp3" type="audio/mpeg">  
   </audio>
 
@@ -53,23 +53,24 @@
     <div class="section">
 
       <div class="row">
-        <div class="center">
-          <h2>Analysis of vehicle registration data in Luxembourg over the last 3 months</h2>          
+        <div class="center bad-overlap">
+          <h2>Analysis of vehicle registration data in Luxembourg over the last 3 months</h2></div> 
+        <div class="center bad-zoom">                                                                                                     <!-- Neu: 9.1.4.10 -->
 <p>This data comes from the SNCA and is published as open data on the data.public.lu website: <a title="delta" href="https://data.public.lu/fr/datasets/operations-delta-des-vehicules-au-luxembourg/">Delta operations of vehicles in Luxembourg.</a></p>
-<p>To get a quick look on the important information of the CO2 emissions simply scroll down to the last graph.</p>
+<p>To get a quick look on the important information of the CO2 emissions simply scroll down to the last graph.</p>                         <!-- Neu: 9.1.3.3 -->
         </div>
       
 <div class="center">
           <h4>Most frequent colors</h4>
-        <img src="img/graph.svg">
+        <img class="flicker" src="img/graph.svg">                                                                                    <!-- class Neu: 9.2.3.1 -->
         </div>
         <div class="center">
           <h4>Most frequent engine types</h4>
-        <img src="img/graph2.svg">
+        <img src="img/graph2.svg" alt="Homemade lemon pie">
       </div>
       <div class="center">
         <h4>Most common brands</h4>
-        <img src="img/graph3.svg">
+        <img src="img/graph3.svg"> 
       </div>
     <div class="center">
       <iframe src="https://datawrapper.dwcdn.net/dStlb/1/" class="center" width="600" height="511"></iframe>
@@ -97,7 +98,8 @@
             <li><a class="white-text" href="index.html">Home</a></li>
             <li><a class="white-text" href="graphiques.html">Charts</a></li>
             <li><a class="white-text" href="donnees.html">Data</a></li>
-            <li><a class="white-text" href="actualites.html">News</a></li><li><a class="white-text" href="contact.html">Contact</a></li>
+            <li><a class="white-text" href="actualites.html">News</a></li>
+                                                                                                                                       <!-- Gelöscht: 9.3.2.6-->
           </ul>
         </div>
         <div class="col l3 s12">

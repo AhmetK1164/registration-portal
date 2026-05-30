@@ -56,17 +56,42 @@ footer.page-footer {
   margin: 0;
 }
 
-body, .container {
-  min-width: 1024px;
-  width: 1024px;
+.timer-box {                                                                                                                                   /*Neu: 9.2.2.1 */
+  display: block;
+  max-width: 520px;
+  margin: 16px auto;
+  padding: 16px 24px;
+  background: #f6f8fa;
+  color: #000000;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 700;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.12);
 }
 
-table {
-  width: 1024px;
-  table-layout: fixed;
-}
+.input-field { position: relative; }                                                                                                          /* Neu: 9.2.1.2 */
+.input-field .hint { position: absolute; top: 100%; left: 0; display: none; }
+.input-field:hover .hint, .input-field:focus-within .hint { display: block; }
 
-.bad-text {
+.bad-zoom {                                                                                                                                  /* Neu: 9.1.4.10 */
+  width: 1200px;
   white-space: nowrap;
+}
+
+.bad-overlap {                                                                                                                               /* Neu: 9.1.4.12 */
+  position: relative;
+  height: 150px;
   overflow: hidden;
+}
+
+.flicker {
+  animation: flicker 0.3s infinite;
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  25% { opacity: 0.2; }
+  50% { opacity: 0.85; }
+  75% { opacity: 0.3; }
 }

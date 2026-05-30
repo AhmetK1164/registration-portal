@@ -41,7 +41,7 @@
           <h5 class="header col s12 light">This is a FAKE site, used only for training purposes.</h5>
         </div>
         <br><br>
-
+        <div class="timer-box" id="timer-status" aria-live="polite">Time left: <span id="timer-count">010:00</span></div>              <!-- Neu: 9.2.2.1-->
       </div>
     </div>
     <div class="parallax"><img src="img/background1.jpg" alt="Unsplashed background img 1"></div>
@@ -95,7 +95,9 @@
   
 
   
-    <input id="form_firstName" maxlength="255" name="firstName" type="text" required="required">
+    <input id="form_firstName" maxlength="255" name="firstName" type="text" required="required" aria-describedby="hint-form_firstName"><!-- Verändert: 9.2.1.2-->
+
+    <span class="hint" id="hint-form_firstName">Enter your given name.</span>                                                          <!-- 9.2.1.2 -->
   
 
   
@@ -945,7 +947,7 @@
 
 <div class="input-field field--text ">
   <label for="form_object" class=" field-label">
-    
+                                                                                                                                    <!-- Entfernt: 9.1.3.5  -->
     
       <span class="field-required"></span>
     
@@ -977,8 +979,8 @@
           
             <textarea id="form_message" class="materialize-textarea" name="message" required="required" rows="10" cols="60"></textarea>
 
-             <p> Upload and Image of your vihicle.</p>
-          <button type="button" onclick="saveImage()">Upload</button>
+             <p> Upload and Image of your vihicle.</p>                                                                <!-- 980 - 982 Neu: 11.8.1 und 11.8.2 -->
+          <button type="button" onclick="saveImage()">Upload</button> 
       <div id="output"></div>
       
 
