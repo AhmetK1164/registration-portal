@@ -85,7 +85,7 @@ footer.page-footer {
   overflow: hidden;
 }
 
-.flicker {
+.flicker {                                                                                                                                    /* Neu: 9.2.3.1 */
   animation: flicker 0.3s infinite;
 }
 
@@ -95,3 +95,99 @@ footer.page-footer {
   50% { opacity: 0.85; }
   75% { opacity: 0.3; }
 }
+
+/* Sitemap dropdown (overlapping). Neu für 9.2.4.11 und 9.4.1.2*/
+.sitemap-wrapper { position: relative; display: inline-block; }                                                     
+.itemap-toggle-fix { outline: none; }
+.sitemap-toggle { background: transparent; border: none; font-size: 1rem; cursor: pointer; padding: 0 8px; }
+.sitemap-dropdown {
+  position: absolute;
+  top: 50px; /* lift higher to overlap the links below (bigger overlap) */
+  left: -50px;
+  display: none;
+  background: rgba(0,0,0,1);
+  padding: 12px 14px;
+  border-radius: 6px;
+  z-index: 9999; /* sit above other footer links */
+  min-width: 500px; /* make larger so it overlaps the contact link too */
+  max-width: 700px;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.4);
+  transform: translateY(-12px);
+}
+/* Keep open when wrapper has this class (persistent until refresh/leave) */
+.sitemap-wrapper.sitemap-open .sitemap-dropdown { display: block; }
+.sitemap-dropdown .sitemap-item { padding: 8px 6px; }
+.sitemap-dropdown .sitemap-item a { color: #ffffff; text-decoration: none; display: block; }
+
+/* Night mode activated by smartphone tilt only */
+.night-mode,
+.night-mode body {
+  background: #111 !important;
+  color: #ddd !important;
+}
+
+.night-mode a,
+.night-mode a:visited,
+.night-mode a:hover,
+.night-mode a:active {
+  color: #80cbc4 !important;
+}
+
+.night-mode .page-footer {
+  background: #121212 !important;
+}
+
+.night-mode .input-field input,
+.night-mode .input-field textarea {
+  background: #1b1b1b !important;
+  color: #eee !important;
+  border-color: #333 !important;
+}
+
+.night-mode .timer-box {
+  background: #1e1e1e;
+  color: #eee;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+}
+
+.night-mode .sitemap-dropdown {
+  background: rgba(20,20,20,0.98);
+}
+
+.night-mode .saved-image {
+  background: #1a1a1a;
+  border-color: #333;
+}
+
+.night-mode .drag-drop-zone {
+  background-color: #111;
+  border-color: #444;
+  color: #bbb;
+}
+
+
+/* Drag-only slider - no clicks, no keyboard input. Neu: 9.2.5.7 */
+.drag-only-slider {
+  width: 33%;
+  max-width: 220px;
+  height: 8px;
+  cursor: grab;
+  pointer-events: all;
+  display: block;
+  margin-top: 8px;
+}
+
+.drag-only-slider:active {
+  cursor: grabbing;
+}
+
+.field--range {
+  margin-bottom: 20px;
+}
+
+.field--range .field-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+

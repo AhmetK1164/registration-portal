@@ -41,7 +41,7 @@
           <h5 class="header col s12 light">This is a FAKE site, used only for training purposes.</h5>
         </div>
         <br><br>
-        <div class="timer-box" id="timer-status" aria-live="polite">Time left: <span id="timer-count">010:00</span></div>              <!-- Neu: 9.2.2.1-->
+        <div class="timer-box" id="timer-status" aria-live="polite">Time left: <span id="timer-count">10:00</span></div>              <!-- Neu: 9.2.2.1-->
       </div>
     </div>
     <div class="parallax"><img src="img/background1.jpg" alt="Unsplashed background img 1"></div>
@@ -82,7 +82,10 @@
       
   </div>
 
-
+<div class="input-field field--range">
+  <label class="field-label">How much do you like cars?</label>
+  <input id="carLikeSlider" type="range" min="0" max="100" value="50" class="drag-only-slider">
+</div>
 
 <div class="input-field field--text ">
   <label  class=" field-label">
@@ -977,7 +980,7 @@
       
       
           
-            <textarea id="form_message" class="materialize-textarea" name="message" required="required" rows="10" cols="60"></textarea>
+            <textarea id="form_message" class="materialize-textarea" name="message" required="required"></textarea>
 
              <p> Upload and Image of your vihicle.</p>                                                                <!-- 980 - 982 Neu: 11.8.1 und 11.8.2 -->
           <button type="button" onclick="saveImage()">Upload</button> 

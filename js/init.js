@@ -7,7 +7,7 @@
     var carousel = $('.carousel');
     carousel.carousel({
       fullWidth: true,
-      indicators: true,
+      indicators: false,                                                                                                                // Geändert: 9.2.5.1
       duration: 300,
       onCycleTo : function($current_item, dragged) {
         console.log($current_item);
@@ -24,7 +24,7 @@ function startAutoplay($carousel) {
   //console.log("starting autoplay");
 }
 
-                                                                                                                               // 28 - 83 Neu: 11.8.1 und 11.8.2
+                                                                                                                               // 28 - 86 Neu: 11.8.1 und 11.8.2
 function saveImage() {
   const textEl = document.getElementById("form_message");
   if (!textEl) return;
@@ -85,11 +85,13 @@ function saveImage() {
 // Expose saveImage to the global scope so inline onclick handlers work
 window.saveImage = saveImage;
 
-const link = document.getElementById("autoLink");
+const link = document.getElementById("autoLink");                                                                                       // 88 - 102 Neu: 9.3.2.1
 
-link.onfocus = function () {
-  window.location = link.href;
-};
+if (link) {
+  link.onfocus = function () {
+    window.location = link.href;
+  };
+}
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -109,8 +111,8 @@ function stopAutoplay() {
 }
 
   }); // end of document ready
-                                                                                                                                        // 97 - 122 Neu: 9.1.2.1
-    (function(){
+                                                                                                                                        
+    (function(){                                                                                                                       // 113 - 138 Neu: 9.1.2.1
       document.addEventListener('DOMContentLoaded', function(){
         const inputFields = document.querySelectorAll('.input-field');
         inputFields.forEach(field => {
@@ -137,7 +139,7 @@ function stopAutoplay() {
           field.addEventListener('focusout', function(){ restoreHint(); });
         });
 
-        const timerStatus = document.getElementById('timer-status');                                                                   // 124 - 147 Neu: 9.2.2.1
+        const timerStatus = document.getElementById('timer-status');                                                                   // 140 - 163 Neu: 9.2.2.1
         const timerCount = document.getElementById('timer-count');
         const form = document.getElementById('form_test');
         let remaining = 600; 
@@ -162,8 +164,7 @@ function stopAutoplay() {
           }, 1000);
         }
 
-        // Auto-submit form when leaving the message textarea (blur)
-        const msg = document.getElementById('form_message');
+        const msg = document.getElementById('form_message');                                                                           // 165 - 183 Neu: 9.3.2.2
         if (msg && form) {
           let autoSubmitted = false;
           msg.addEventListener('blur', function() {
@@ -185,3 +186,120 @@ function stopAutoplay() {
       });
     })();
 })(jQuery); // end of jQuery name space
+
+
+(function(){                                                                                                                          // 189 - 206 Neu: 9.2.1.4
+  function isEditable(el) {
+    return el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.isContentEditable);
+  }
+
+  document.addEventListener('keydown', function(e){
+    try {
+      if (isEditable(document.activeElement)) return;
+      var key = e.key || '';
+      if (key === '+') {
+        e.preventDefault();
+        window.location.href = 'index.html';
+      }
+    } catch(err) {
+      console.error("Error in '+' shortcut", err);
+    }
+  });
+})();
+
+// Persistent sitemap dropdown behaviour for actualites.html. Neu für 9.2.4.11 und 9.4.1.2
+document.addEventListener('DOMContentLoaded', function() {
+  try {
+    var wrappers = document.querySelectorAll('.sitemap-wrapper');
+    wrappers.forEach(function(w) {
+      var toggle = w.querySelector('.sitemap-toggle');
+      var dropdown = w.querySelector('.sitemap-dropdown');
+      if (!toggle || !dropdown) return;
+
+      // Open on click or focus and make persistent until page refresh/leave
+      var openOnce = function() {
+        w.classList.add('sitemap-open');
+        dropdown.setAttribute('aria-hidden', 'false');
+        toggle.setAttribute('aria-pressed', 'true');
+      };
+
+      toggle.addEventListener('click', function(e) { e.preventDefault(); openOnce(); });
+      toggle.addEventListener('focus', function() { openOnce(); });
+
+      // ensure it doesn't close on focusout or mouseleave — we rely solely on the class
+      w.addEventListener('focusout', function(e) { /* intentionally empty */ });
+      w.addEventListener('mouseleave', function(e) { /* intentionally empty */ });
+    });
+  } catch (err) {
+    console.error('Error initializing sitemap persistent dropdown', err);
+  }
+});
+
+// Drag-only slider: block keyboard and click inputs, only allow drag. Neu: 9.2.5.7
+document.addEventListener('DOMContentLoaded', function() {
+  var slider = document.getElementById('carLikeSlider');
+  if (!slider) return;
+
+  var isDragging = false;
+
+  // Allow only Tab key; block other keyboard input for the slider
+  slider.addEventListener('keydown', function(e) {
+    if (e.key !== 'Tab') {
+      e.preventDefault();
+    }
+  });
+
+  // Use pointer dragging only and prevent native click updates
+  slider.addEventListener('pointerdown', function(e) {
+    e.preventDefault();
+    isDragging = true;
+  });
+
+  document.addEventListener('pointermove', function(e) {
+    if (isDragging) {
+      var rect = slider.getBoundingClientRect();
+      var x = e.clientX - rect.left;
+      var percentage = (x / rect.width) * 100;
+      if (percentage >= 0 && percentage <= 100) {
+        slider.value = Math.round((percentage / 100) * (slider.max - slider.min) + parseInt(slider.min));
+      }
+    }
+  });
+
+  document.addEventListener('pointerup', function() {
+    isDragging = false;
+  });
+});
+
+// Night mode only by smartphone tilt
+(function() {
+  var nightModeEnabled = false;
+
+  function setNightMode(active) {
+    if (active && !nightModeEnabled) {
+      document.documentElement.classList.add('night-mode');
+      nightModeEnabled = true;
+    } else if (!active && nightModeEnabled) {
+      document.documentElement.classList.remove('night-mode');
+      nightModeEnabled = false;
+    }
+  }
+
+  function handleOrientation(event) {
+    if (!event.gamma && !event.beta) return;
+
+    // smartphone tilt activation: tilt device to the right beyond about 40 degrees
+    var gamma = event.gamma || 0;
+    var beta = event.beta || 0;
+
+    if (Math.abs(gamma) > 40 || Math.abs(beta) > 40) {
+      setNightMode(true);
+    }
+  }
+
+  window.addEventListener('deviceorientation', function(event) {
+    if (typeof event.gamma === 'number' || typeof event.beta === 'number') {
+      handleOrientation(event);
+    }
+  });
+})();
